@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prodep_client/screens/enable-notifications-screen.dart';
 import 'package:prodep_client/screens/splash-screen.dart';
 
 void main() {
@@ -12,11 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'PRODEP',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const SplashScreen());
+      title: 'PRODEP',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const EnableNotificationsScreen(),
+    );
   }
 }

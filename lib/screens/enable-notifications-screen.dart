@@ -7,6 +7,67 @@ class EnableNotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              child: Image.asset(
+                  width: 230,
+                  'assets/images/notify-bell.png',
+                  fit: BoxFit.contain),
+            ),
+            Container(
+              height: 150,
+              alignment: Alignment.center,
+              child: const Text(
+                'Enable Notifications',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22),
+              ),
+            ),
+            Stack(
+              children: [
+                Container(
+                  alignment: Alignment.bottomRight,
+                  width: double.infinity,
+                  child: Image.asset(
+                      width: 330,
+                      'assets/images/pattern2.png',
+                      fit: BoxFit.contain),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 150,
+                      alignment: Alignment.bottomCenter,
+                      child: const Text(
+                        'What we do?',
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
