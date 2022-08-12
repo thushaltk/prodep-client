@@ -13,29 +13,57 @@ class EnableNotificationsScreen extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              alignment: Alignment.center,
-              width: double.infinity,
-              child: Image.asset(
-                width: 200,
-                'assets/images/notify-bell.png',
-                fit: BoxFit.contain,
-              ),
-            ),
-            Container(
-              height: 150,
-              width: double.infinity,
-              alignment: Alignment.center,
-              child: const Text(
-                'Enable Notifications',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 32,
-                ),
+            Flexible(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    width: double.infinity,
+                    child: Image.asset(
+                      width: 200,
+                      'assets/images/notify-bell.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 80,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Enable Notifications',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 32,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      'Enable notifications so you don’t miss any important updates.',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Stack(
@@ -48,23 +76,38 @@ class EnableNotificationsScreen extends StatelessWidget {
                       'assets/images/pattern2.png',
                       fit: BoxFit.contain),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 150,
-                      alignment: Alignment.bottomCenter,
+                Container(
+                  width: double.infinity,
+                  height: 100,
+                  alignment: Alignment.bottomCenter,
+                  child: SizedBox(
+                    width: 150,
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                        )),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFF393737)),
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                          const EdgeInsets.all(18.0),
+                        ),
+                      ),
+                      onPressed: () {
+                        // Navigator.of(context)
+                        //     .pushNamed(LoginSelectionScreen.routeName);
+                      },
                       child: const Text(
-                        'What we do?',
+                        'GO TO SETTINGS',
                         style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12),
+                          fontSize: 13,
+                        ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),
