@@ -20,19 +20,22 @@ class EnableNotificationsScreen extends StatelessWidget {
               alignment: Alignment.center,
               width: double.infinity,
               child: Image.asset(
-                  width: 230,
-                  'assets/images/notify-bell.png',
-                  fit: BoxFit.contain),
+                width: 200,
+                'assets/images/notify-bell.png',
+                fit: BoxFit.contain,
+              ),
             ),
             Container(
               height: 150,
+              width: double.infinity,
               alignment: Alignment.center,
               child: const Text(
                 'Enable Notifications',
                 style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22),
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 32,
+                ),
               ),
             ),
             Stack(
