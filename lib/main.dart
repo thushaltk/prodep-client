@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prodep_client/screens/backgroundrun-warning-screen.dart';
 import 'package:prodep_client/screens/enable-notifications-screen.dart';
 import 'package:prodep_client/screens/enter-district-screen.dart';
 import 'package:prodep_client/screens/splash-screen.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: EnterDistrictScreen(),
+      home: BackgroundRunWarningScreen(),
     );
   }
 }
