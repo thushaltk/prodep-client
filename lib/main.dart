@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prodep_client/screens/backgroundrun-warning-screen.dart';
 import 'package:prodep_client/screens/enable-notifications-screen.dart';
 import 'package:prodep_client/screens/enter-district-screen.dart';
+import 'package:prodep_client/screens/linkfb-screen.dart';
 import 'package:prodep_client/screens/splash-screen.dart';
 
 void main() {
@@ -18,9 +19,10 @@ class MyApp extends StatelessWidget {
       title: 'PRODEP',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'Tenorite',
         primarySwatch: Colors.blueGrey,
       ),
-      home: BackgroundRunWarningScreen(),
+      home: LinkFacebookAccountScreen(),
     );
   }
 }
