@@ -86,7 +86,7 @@ class LinkFacebookAccountScreen extends StatelessWidget {
                           child: SizedBox(
                             width: 250,
                             child: ElevatedButton.icon(
-                              icon: Icon(Icons.facebook),
+                              icon: const Icon(Icons.facebook),
                               style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
