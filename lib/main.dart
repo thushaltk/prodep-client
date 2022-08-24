@@ -5,6 +5,7 @@ import 'package:prodep_client/screens/enter-district-screen.dart';
 import 'package:prodep_client/screens/linkfb-screen.dart';
 import 'package:prodep_client/screens/linktwitter-screen.dart';
 import 'package:prodep_client/screens/login-screen.dart';
+import 'package:prodep_client/screens/main-screen.dart';
 import 'package:prodep_client/screens/splash-screen.dart';
 
 void main() {
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Tenorite',
         primarySwatch: Colors.blueGrey,
       ),
-      home: LoginScreen(),
+      home: MainScreen(),
     );
   }
 }
