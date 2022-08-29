@@ -14,23 +14,45 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: Icon(Icons.arrow_back, size: 35),
-          ),
-          Container(
-            width: 200,
-            height: 100,
-            child: const UserInfoWidget(
-              username: '',
-              userdistrict: '',
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  alignment: Alignment.topLeft,
+                  width: 350,
+                  child: Image.asset(
+                      width: 330,
+                      'assets/images/pattern.png',
+                      fit: BoxFit.contain),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Icon(Icons.arrow_back, size: 35),
+                    ),
+                    Container(
+                      width: 200,
+                      height: 100,
+                      child: const UserInfoWidget(
+                        username: '',
+                        userdistrict: '',
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class UserInfoWidget extends StatefulWidget {
   final String username;
@@ -32,7 +33,27 @@ class _UserInfoWidgetState extends State<UserInfoWidget> {
                 "User 01",
                 style: TextStyle(fontSize: 25),
               ),
-              Text("COLOMBO"),
+              Text(
+                "COLOMBO",
+                style: TextStyle(fontSize: 14),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.settings,
+                    size: 15,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Icon(
+                    Icons.notifications,
+                    size: 15,
+                  ),
+                ],
+              )
             ],
           ),
           Padding(
