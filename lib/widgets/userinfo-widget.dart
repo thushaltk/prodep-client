@@ -30,7 +30,7 @@ class _UserInfoWidgetState extends State<UserInfoWidget> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                "User 01",
+                "ThuzhalTK",
                 style: TextStyle(fontSize: 25),
               ),
               Text(

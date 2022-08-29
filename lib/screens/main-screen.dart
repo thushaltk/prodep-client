@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:prodep_client/widgets/maindate-widget.dart';
 import 'package:prodep_client/widgets/userinfo-widget.dart';
 
 class MainScreen extends StatefulWidget {
@@ -40,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
                       child: Icon(Icons.arrow_back, size: 35),
                     ),
                     Container(
-                      width: 200,
+                      width: 250,
                       height: 100,
                       child: const UserInfoWidget(
                         username: '',
@@ -49,6 +50,7 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ],
                 ),
+                MainDateWidget()
               ],
             ),
           ],
