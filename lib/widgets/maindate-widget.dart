@@ -59,36 +59,39 @@ class _MainDateWidgetState extends State<MainDateWidget> {
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),
                 ),
-                DropdownButton(
-                  // Initial Value
-                  value: dropdownvalue,
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: DropdownButton(
+                    // Initial Value
+                    value: dropdownvalue,
 
-                  // Down Arrow Icon
-                  icon: const Icon(Icons.keyboard_arrow_down),
+                    // Down Arrow Icon
+                    icon: const Icon(Icons.keyboard_arrow_down),
 
-                  // Array list of items
-                  items: months.map((String month) {
-                    return DropdownMenuItem(
-                      value: month,
-                      child: Text(
-                        month,
-                        style: TextStyle(
-                          fontSize: 18,
+                    // Array list of items
+                    items: months.map((String month) {
+                      return DropdownMenuItem(
+                        value: month,
+                        child: Text(
+                          month,
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
                         ),
-                      ),
-                    );
-                  }).toList(),
-                  // After selecting the desired option,it will
-                  // change button value to selected value
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownvalue = newValue!;
-                    });
-                  },
+                      );
+                    }).toList(),
+                    // After selecting the desired option,it will
+                    // change button value to selected value
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownvalue = newValue!;
+                      });
+                    },
+                  ),
                 ),
               ],
             ),
-            DateDaysWidget()
+            DateDaysWidget(monthName: dropdownvalue,)
           ],
         ),
       ),
