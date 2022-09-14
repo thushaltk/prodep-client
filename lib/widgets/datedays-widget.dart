@@ -18,7 +18,6 @@ class _DateDaysWidgetState extends State<DateDaysWidget> {
       child: Container(
           height: 70,
           width: double.infinity,
-          color: Colors.red,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(

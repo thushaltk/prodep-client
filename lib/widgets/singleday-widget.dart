@@ -16,12 +16,29 @@ class _SingleDayWidgetState extends State<SingleDayWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(3.0),
       child: Container(
-        color: Colors.white,
-        width: 50,
-        height: 70,
-        child: Text(widget.day),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15.0),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        alignment: Alignment.center,
+        width: 60,
+        height: 80,
+        child: Text(
+          widget.day,
+          style: const TextStyle(
+            fontSize: 25,
+          ),
+        ),
       ),
     );
   }

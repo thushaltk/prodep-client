@@ -19,11 +19,24 @@ class _MainDateWidgetState extends State<MainDateWidget> {
       child: Container(
         width: double.infinity,
         height: 140,
-        color: Colors.blue,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [DateDaysWidget()],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    "Good Morning!..",
+                    style: TextStyle(fontSize: 35),
+                  ),
+                ),
+
+              ],
+            ),
+            DateDaysWidget()
+          ],
         ),
       ),
     );
