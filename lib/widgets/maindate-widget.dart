@@ -12,6 +12,7 @@ class MainDateWidget extends StatefulWidget {
 }
 
 class _MainDateWidgetState extends State<MainDateWidget> {
+  int hours = DateTime.now().hour;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,12 +28,20 @@ class _MainDateWidgetState extends State<MainDateWidget> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(
+                  child: hours >= 12 ?  Text(         
+                    "Good Afternoon!..",
+                    style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ) :  Text(         
                     "Good Morning!..",
-                    style: TextStyle(fontSize: 35),
+                    style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold
+                    ),
                   ),
                 ),
-
               ],
             ),
             DateDaysWidget()
