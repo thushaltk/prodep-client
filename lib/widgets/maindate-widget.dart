@@ -62,13 +62,8 @@ class _MainDateWidgetState extends State<MainDateWidget> {
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: DropdownButton(
-                    // Initial Value
                     value: dropdownvalue,
-
-                    // Down Arrow Icon
                     icon: const Icon(Icons.keyboard_arrow_down),
-
-                    // Array list of items
                     items: months.map((String month) {
                       return DropdownMenuItem(
                         value: month,
@@ -80,8 +75,6 @@ class _MainDateWidgetState extends State<MainDateWidget> {
                         ),
                       );
                     }).toList(),
-                    // After selecting the desired option,it will
-                    // change button value to selected value
                     onChanged: (String? newValue) {
                       setState(() {
                         dropdownvalue = newValue!;
