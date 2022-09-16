@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:prodep_client/widgets/maindate-widget.dart';
+import 'package:prodep_client/widgets/prodepvision/prodepvision-widget.dart';
 import 'package:prodep_client/widgets/userinfo-widget.dart';
 
 class MainScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
         width: double.infinity,
         height: double.infinity,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
@@ -50,9 +51,10 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ],
                 ),
-                MainDateWidget()
+                MainDateWidget(),
               ],
             ),
+            ProdepVisionWidget()
           ],
         ),
       ),

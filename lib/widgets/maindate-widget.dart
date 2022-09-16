@@ -4,6 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:prodep_client/widgets/datedays-widget.dart';
 import 'package:intl/intl.dart';
+import 'package:prodep_client/widgets/prodepvision/prodepvision-widget.dart';
 
 class MainDateWidget extends StatefulWidget {
   const MainDateWidget({Key? key}) : super(key: key);
@@ -84,7 +85,7 @@ class _MainDateWidgetState extends State<MainDateWidget> {
                 ),
               ],
             ),
-            DateDaysWidget(monthName: dropdownvalue,)
+            DateDaysWidget(monthName: dropdownvalue,),
           ],
         ),
       ),
