@@ -51,7 +51,7 @@ class _DateDaysWidgetState extends State<DateDaysWidget> {
                     scrollDirection: Axis.horizontal,
                     itemCount: currentNoOfDates,
                     itemBuilder: (context, index) {
-                      return SingleDayWidget(day: (++index).toString());
+                      return SingleDayWidget(day: (++index), month: widget.monthName,);
                     },
                   ),
                 ),
