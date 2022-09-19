@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class ProdepVisionWidget extends StatefulWidget {
-  const ProdepVisionWidget({Key? key}) : super(key: key);
+class ProdepTwitterWidget extends StatefulWidget {
+  const ProdepTwitterWidget({Key? key}) : super(key: key);
 
   @override
-  State<ProdepVisionWidget> createState() => _ProdepVisionWidgetState();
+  State<ProdepTwitterWidget> createState() => _ProdepTwitterWidgetState();
 }
 
-class _ProdepVisionWidgetState extends State<ProdepVisionWidget> {
+class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
   @override
   Widget build(BuildContext context) {
     return Flexible(
@@ -35,7 +35,7 @@ class _ProdepVisionWidgetState extends State<ProdepVisionWidget> {
                       const Padding(
                         padding: EdgeInsets.all(15.0),
                         child: Text(
-                          "Today's Social Media Usage",
+                          "Today's Twitter Usage",
                           style: TextStyle(
                               fontSize: 25,
                               color: Color(0xFF393737),

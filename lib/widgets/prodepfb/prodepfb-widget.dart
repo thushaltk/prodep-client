@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class ProdepVisionWidget extends StatefulWidget {
-  const ProdepVisionWidget({Key? key}) : super(key: key);
+class ProdepFbWidget extends StatefulWidget {
+  const ProdepFbWidget({Key? key}) : super(key: key);
 
   @override
-  State<ProdepVisionWidget> createState() => _ProdepVisionWidgetState();
+  State<ProdepFbWidget> createState() => _ProdepFbWidgetState();
 }
 
-class _ProdepVisionWidgetState extends State<ProdepVisionWidget> {
+class _ProdepFbWidgetState extends State<ProdepFbWidget> {
   @override
   Widget build(BuildContext context) {
     return Flexible(
@@ -35,7 +35,7 @@ class _ProdepVisionWidgetState extends State<ProdepVisionWidget> {
                       const Padding(
                         padding: EdgeInsets.all(15.0),
                         child: Text(
-                          "Today's Social Media Usage",
+                          "Today's Facebook Usage",
                           style: TextStyle(
                               fontSize: 25,
                               color: Color(0xFF393737),

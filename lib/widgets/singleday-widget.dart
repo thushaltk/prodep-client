@@ -16,7 +16,7 @@ class SingleDayWidget extends StatefulWidget {
 }
 
 class _SingleDayWidgetState extends State<SingleDayWidget> {
-  int today = DateTime.now().day + 1;
+  int today = DateTime.now().day;
   String currentMonth = DateFormat("MMMM").format(DateTime.now());
   bool isEqual = false;
   void checkToday() {
@@ -36,13 +36,13 @@ class _SingleDayWidgetState extends State<SingleDayWidget> {
         decoration: isEqual
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
-                color: Color(0xFF393737),
+                color: const Color(0xFF393737),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.3),
                     spreadRadius: 2,
                     blurRadius: 7,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
               )
@@ -54,7 +54,7 @@ class _SingleDayWidgetState extends State<SingleDayWidget> {
                     color: Colors.grey.withOpacity(0.3),
                     spreadRadius: 2,
                     blurRadius: 7,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
@@ -64,11 +64,11 @@ class _SingleDayWidgetState extends State<SingleDayWidget> {
         child: Text(
           widget.day.toString(),
           style: isEqual
-              ? TextStyle(
+              ? const TextStyle(
                   fontSize: 25,
                   color: Colors.white,
                   fontWeight: FontWeight.bold)
-              : TextStyle(fontSize: 25, color: Colors.black),
+              : const TextStyle(fontSize: 25, color: Colors.black),
         ),
       ),
     );

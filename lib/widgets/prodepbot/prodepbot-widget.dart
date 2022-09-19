@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class ProdepVisionWidget extends StatefulWidget {
-  const ProdepVisionWidget({Key? key}) : super(key: key);
+class ProDepBotWidget extends StatefulWidget {
+  const ProDepBotWidget({Key? key}) : super(key: key);
 
   @override
-  State<ProdepVisionWidget> createState() => _ProdepVisionWidgetState();
+  State<ProDepBotWidget> createState() => _ProDepBotWidgetState();
 }
 
-class _ProdepVisionWidgetState extends State<ProdepVisionWidget> {
+class _ProDepBotWidgetState extends State<ProDepBotWidget> {
   @override
   Widget build(BuildContext context) {
     return Flexible(
