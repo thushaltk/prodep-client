@@ -37,7 +37,7 @@ class _ProdepFbWidgetState extends State<ProdepFbWidget> {
                         child: Text(
                           "Today's Facebook Usage",
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 23,
                               color: Color(0xFF393737),
                               fontWeight: FontWeight.bold),
                         ),

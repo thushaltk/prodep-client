@@ -18,56 +18,66 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Stack(
-            children: [
-              Container(
-                alignment: Alignment.topLeft,
-                width: 350,
-                child: Image.asset(
-                    width: 330,
-                    'assets/images/pattern.png',
-                    fit: BoxFit.contain),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Icon(Icons.arrow_back, size: 35),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        child: Column(
+          children: <Widget>[
+            Stack(
+              children: [
+                Container(
+                  alignment: Alignment.topLeft,
+                  width: 350,
+                  child: Image.asset(
+                      width: 330,
+                      'assets/images/pattern.png',
+                      fit: BoxFit.contain),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 38.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Icon(Icons.arrow_back, size: 35),
+                      ),
+                      Container(
+                        width: 250,
+                        height: 100,
+                        child: const UserInfoWidget(
+                          username: '',
+                          userdistrict: '',
+                        ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    width: 250,
-                    height: 100,
-                    child: const UserInfoWidget(
-                      username: '',
-                      userdistrict: '',
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 38.0),
+                  child: MainDateWidget(),
+                ),
+              ],
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      ProdepVisionWidget(),
+                      ProdepFbWidget(),
+                      ProdepTwitterWidget()
+                    ],
                   ),
-                ],
-              ),
-              MainDateWidget(),
-            ],
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Container(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    ProdepVisionWidget(),
-                    ProdepFbWidget(),
-                    ProdepTwitterWidget()
-                  ],
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

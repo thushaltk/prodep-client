@@ -1,10 +1,44 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:http/http.dart' as http;
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  Map? _userData;
+
+  Future<void> login() async {
+    final result = await FacebookAuth.instance.login(
+      permissions: [
+      'public_profile',
+      'email',
+      'user_posts'
+    ]);
+
+    print(result.accessToken!.token);
+
+    if (result.status == LoginStatus.success) {
+      final requestData = await FacebookAuth.i.getUserData(
+        fields: "email,name,posts{attachments}",
+      );
+
+      setState(() {
+        _userData = requestData;
+      });
+
+      print(_userData);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +71,7 @@ class LoginScreen extends StatelessWidget {
                           Container(
                             alignment: Alignment.center,
                             child: SizedBox(
-                              width: 250,
+                              width: 280,
                               child: ElevatedButton.icon(
                                 icon: const Icon(Icons.facebook),
                                 style: ButtonStyle(
@@ -55,6 +89,7 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                 ),
                                 onPressed: () {
+                                  login();
                                   // Navigator.of(context)
                                   //     .pushNamed(LoginSelectionScreen.routeName);
                                 },
@@ -100,7 +135,7 @@ class LoginScreen extends StatelessWidget {
                           Container(
                             alignment: Alignment.center,
                             child: SizedBox(
-                              width: 250,
+                              width: 280,
                               child: ElevatedButton.icon(
                                 icon: const Icon(FontAwesomeIcons.twitter),
                                 style: ButtonStyle(

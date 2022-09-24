@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">prodep</string>
+    <string name="facebook_app_id">1312460779524215</string>
+    <string name="fb_login_protocol_scheme">fb1312460779524215</string>
+    <string name="facebook_client_token">9cf2b037122f4c7b8157a57b09c8d309</string>
+</resources>
