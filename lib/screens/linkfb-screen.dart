@@ -3,6 +3,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class LinkFacebookAccountScreen extends StatelessWidget {
+  static const routeName = "/linkfb";
+
   const LinkFacebookAccountScreen({Key? key}) : super(key: key);
 
   @override

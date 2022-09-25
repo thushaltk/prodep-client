@@ -25,7 +25,14 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Tenorite',
         primarySwatch: Colors.blueGrey,
       ),
-      home: MainScreen(),
+      home: SplashScreen(),
+      routes: {
+        LoginScreen.routeName: (ctx) => const LoginScreen(),
+        EnableNotificationsScreen.routeName: (ctx) => const EnableNotificationsScreen(),
+        EnterDistrictScreen.routeName: (ctx) => EnterDistrictScreen(),
+        BackgroundRunWarningScreen.routeName: (ctx) => const BackgroundRunWarningScreen()
+        
+      },
     );
   }
 }

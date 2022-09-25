@@ -3,6 +3,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class BackgroundRunWarningScreen extends StatelessWidget {
+  static const routeName = "/backgroundRun";
+
   const BackgroundRunWarningScreen({Key? key}) : super(key: key);
 
   @override

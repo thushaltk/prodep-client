@@ -8,6 +8,8 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
+  static const routeName = "/login";
+
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -18,12 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Map? _userData;
 
   Future<void> login() async {
-    final result = await FacebookAuth.instance.login(
-      permissions: [
-      'public_profile',
-      'email',
-      'user_posts'
-    ]);
+    final result = await FacebookAuth.instance
+        .login(permissions: ['public_profile', 'email', 'user_posts']);
 
     print(result.accessToken!.token);
 
@@ -180,6 +178,45 @@ class _LoginScreenState extends State<LoginScreen> {
                           'assets/images/pattern2.png',
                           fit: BoxFit.contain),
                     ),
+                    SizedBox(
+                            height: 50,
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: SizedBox(
+                              width: 280,
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      side: const BorderSide(
+                                        color: Color(0xFF393737),
+                                      ),
+                                    ),
+                                  ),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(Colors.white),
+                                  padding:
+                                      MaterialStateProperty.all<EdgeInsets>(
+                                    const EdgeInsets.all(18.0),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  // Navigator.of(context)
+                                  //     .pushNamed(LoginSelectionScreen.routeName);
+                                },
+                                child: const Text(
+                                  'Continue without login',
+                                  style: TextStyle(
+                                    color: Color(0xFF393737),
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,

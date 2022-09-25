@@ -1,9 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.prodep_client">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
 
-    <application android:label="prodep_client" android:name="${applicationName}" android:icon="@mipmap/ic_launcher">
+    <application android:label="PRODEP" android:name="${applicationName}" android:icon="@mipmap/ic_launcher">
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
         <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>

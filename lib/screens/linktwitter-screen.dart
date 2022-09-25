@@ -4,6 +4,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LinkTwitterAccountScreen extends StatelessWidget {
+  static const routeName = "/linkTwitter";
+
   const LinkTwitterAccountScreen({Key? key}) : super(key: key);
 
   @override

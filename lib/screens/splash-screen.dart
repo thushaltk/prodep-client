@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:prodep_client/screens/enable-notifications-screen.dart';
+import 'package:prodep_client/screens/login-screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -32,7 +34,7 @@ class SplashScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: SizedBox(
                 width: 150,
-                height: 40,
+                height: 50,
                 child: ElevatedButton(
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -46,8 +48,8 @@ class SplashScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    // Navigator.of(context)
-                    //     .pushNamed(LoginSelectionScreen.routeName);
+                    Navigator.of(context)
+                        .pushNamed(EnableNotificationsScreen.routeName);
                   },
                   child: const Text(
                     'GET STARTED',

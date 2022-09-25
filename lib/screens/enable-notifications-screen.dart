@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:prodep_client/screens/enter-district-screen.dart';
 
-class EnableNotificationsScreen extends StatelessWidget {
+class EnableNotificationsScreen extends StatefulWidget {
+  static const routeName = "/enableNotifications";
+
   const EnableNotificationsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<EnableNotificationsScreen> createState() =>
+      _EnableNotificationsScreenState();
+}
+
+class _EnableNotificationsScreenState extends State<EnableNotificationsScreen> {
+  void enableNotificationsPermission() async {
+    if (await Permission.notification.status == PermissionStatus.granted) {
+      Navigator.of(context).pushNamed(EnterDistrictScreen.routeName);
+    } else {
+      openAppSettings();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +46,7 @@ class EnableNotificationsScreen extends StatelessWidget {
                     alignment: Alignment.center,
                     width: double.infinity,
                     child: Image.asset(
-                      width: 200,
+                      width: 150,
                       'assets/images/notify-bell.png',
                       fit: BoxFit.contain,
                     ),
@@ -82,7 +100,7 @@ class EnableNotificationsScreen extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: SizedBox(
                     width: 150,
-                    height: 40,
+                    height: 50,
                     child: ElevatedButton(
                       style: ButtonStyle(
                         shape:
@@ -97,8 +115,7 @@ class EnableNotificationsScreen extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        // Navigator.of(context)
-                        //     .pushNamed(LoginSelectionScreen.routeName);
+                        enableNotificationsPermission();
                       },
                       child: const Text(
                         'GO TO SETTINGS',

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:prodep_client/screens/backgroundrun-warning-screen.dart';
 
 class EnterDistrictScreen extends StatefulWidget {
+  static const routeName = "/chooseDistrict";
   EnterDistrictScreen({Key? key}) : super(key: key);
 
   @override
@@ -63,13 +65,13 @@ class _EnterDistrictScreenState extends State<EnterDistrictScreen> {
                     alignment: Alignment.center,
                     width: double.infinity,
                     child: Image.asset(
-                      width: 200,
+                      width: 150,
                       'assets/images/district.png',
                       fit: BoxFit.contain,
                     ),
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 60,
                   ),
                   Container(
                     width: double.infinity,
@@ -86,20 +88,23 @@ class _EnterDistrictScreenState extends State<EnterDistrictScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    child: Text(
-                      textAlign: TextAlign.center,
-                      'Choose the district that you are currently living from below list.',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        'Choose the district that you are currently living from below list.',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(
-                    height: 60,
+                    height: 50,
                   ),
                   Container(
                     width: 330,
@@ -137,7 +142,7 @@ class _EnterDistrictScreenState extends State<EnterDistrictScreen> {
                   alignment: Alignment.bottomCenter,
                   child: SizedBox(
                     width: 150,
-                    height: 40,
+                    height: 50,
                     child: ElevatedButton(
                       style: ButtonStyle(
                         shape:
@@ -152,8 +157,7 @@ class _EnterDistrictScreenState extends State<EnterDistrictScreen> {
                         ),
                       ),
                       onPressed: () {
-                        // Navigator.of(context)
-                        //     .pushNamed(LoginSelectionScreen.routeName);
+                        Navigator.of(context).pushNamed(BackgroundRunWarningScreen.routeName);
                       },
                       child: const Text(
                         'PROCEED',
