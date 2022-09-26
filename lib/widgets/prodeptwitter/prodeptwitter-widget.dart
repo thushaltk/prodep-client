@@ -1,3 +1,4 @@
+import 'package:app_usage/app_usage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -10,6 +11,48 @@ class ProdepTwitterWidget extends StatefulWidget {
 }
 
 class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
+  DateTime endDate = DateTime.now();
+  DateTime startDate = DateTime(
+      DateTime.now().year, DateTime.now().month, DateTime.now().day, 0, 0, 0);
+  int hours = 0;
+  int minutes = 0;
+  String text = "";
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      initUsage();
+    });
+  }
+
+  Future<void> initUsage() async {
+    int totalHours = 0;
+    int totalMinutes = 0;
+    List<AppUsageInfo> infoList =
+        await AppUsage.getAppUsage(startDate, endDate);
+
+    infoList.reversed.toList().forEach((element) {
+      if (element.packageName == "com.twitter.android") {
+        totalHours = totalHours + element.usage.inHours;
+        totalMinutes = totalMinutes + element.usage.inMinutes;
+      }
+    });
+
+    this.setState(() {
+      if (totalHours <= 3) {
+        text = "Good usage";
+      } else if (totalHours > 3 && totalHours <= 5) {
+        text = "Try to reduce";
+      } else {
+        text = "Too much";
+      }
+
+      hours = totalHours;
+      minutes = totalMinutes;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Flexible(
@@ -19,7 +62,9 @@ class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
             child: InkWell(
           splashColor: Colors.blue.withAlpha(30),
           onTap: () {
-            debugPrint('Card tapped.');
+            //getCameras();
+            // Navigator.of(context).pushNamed(ProdepVisionMain.routeName);
+            // debugPrint('Card tapped.');
           },
           child: Container(
             width: double.infinity,
@@ -35,54 +80,142 @@ class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
                       const Padding(
                         padding: EdgeInsets.all(15.0),
                         child: Text(
-                          "Today's Twitter Usage",
+                          "Today's Social Media Usage",
                           style: TextStyle(
                               fontSize: 25,
                               color: Color(0xFF393737),
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
-                          Text(
-                            "09",
-                            style: TextStyle(
-                              fontSize: 35,
-                              color: Color(0xFF393737),
-                            ),
-                          ),
-                          Text(
-                            "Hrs",
-                            style: TextStyle(
-                              fontSize: 35,
-                              color: Color(0xFF393737),
-                            ),
-                          ),
-                          Text(
-                            "30",
-                            style: TextStyle(
-                              fontSize: 35,
-                              color: Color(0xFF393737),
-                            ),
-                          ),
-                          Text(
-                            "mins",
-                            style: TextStyle(
-                              fontSize: 35,
-                              color: Color(0xFF393737),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Text(
-                        "Too Much",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Color(0xFF393737),
-                        ),
-                      ),
+                      hours <= 3
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  hours.toString(),
+                                  style: TextStyle(
+                                    fontSize: 35,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                                Text(
+                                  "Hrs",
+                                  style: TextStyle(
+                                    fontSize: 35,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                                Text(
+                                  minutes.toString(),
+                                  style: TextStyle(
+                                    fontSize: 35,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                                Text(
+                                  "mins",
+                                  style: TextStyle(
+                                    fontSize: 35,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : hours > 3 && hours <= 5
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      hours.toString(),
+                                      style: TextStyle(
+                                        fontSize: 35,
+                                        color: Color.fromARGB(255, 235, 82, 12),
+                                      ),
+                                    ),
+                                    Text(
+                                      "Hrs",
+                                      style: TextStyle(
+                                        fontSize: 35,
+                                        color: Color.fromARGB(255, 235, 82, 12),
+                                      ),
+                                    ),
+                                    Text(
+                                      minutes.toString(),
+                                      style: TextStyle(
+                                        fontSize: 35,
+                                        color: Color.fromARGB(255, 235, 82, 12),
+                                      ),
+                                    ),
+                                    Text(
+                                      "mins",
+                                      style: TextStyle(
+                                        fontSize: 35,
+                                        color: Color.fromARGB(255, 235, 82, 12),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      hours.toString(),
+                                      style: TextStyle(
+                                        fontSize: 35,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Hrs",
+                                      style: TextStyle(
+                                        fontSize: 35,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    Text(
+                                      minutes.toString(),
+                                      style: TextStyle(
+                                        fontSize: 35,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    Text(
+                                      "mins",
+                                      style: TextStyle(
+                                        fontSize: 35,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                      hours <= 3
+                          ? Text(
+                              text,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.green,
+                              ),
+                            )
+                          : hours > 3 && hours <= 5
+                              ? Text(
+                                  text,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Color.fromARGB(255, 235, 82, 12),
+                                  ),
+                                )
+                              : Text(
+                                  text,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.red,
+                                  ),
+                                ),
                     ],
                   ),
                 ),

@@ -8,6 +8,8 @@ import 'package:prodep_client/widgets/prodepvision/prodepvision-widget.dart';
 import 'package:prodep_client/widgets/userinfo-widget.dart';
 
 class MainScreen extends StatefulWidget {
+  static const routeName = "/main";
+
   const MainScreen({Key? key}) : super(key: key);
 
   @override

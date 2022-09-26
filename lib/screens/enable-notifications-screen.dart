@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:prodep_client/screens/enter-district-screen.dart';
 
@@ -17,6 +18,15 @@ class EnableNotificationsScreen extends StatefulWidget {
 class _EnableNotificationsScreenState extends State<EnableNotificationsScreen> {
   void enableNotificationsPermission() async {
     if (await Permission.notification.status == PermissionStatus.granted) {
+      Fluttertoast.showToast(
+        msg: "Already approved!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 12.0
+    );
       Navigator.of(context).pushNamed(EnterDistrictScreen.routeName);
     } else {
       openAppSettings();

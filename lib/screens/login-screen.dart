@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:http/http.dart' as http;
+import 'package:prodep_client/screens/main-screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = "/login";
@@ -204,8 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  // Navigator.of(context)
-                                  //     .pushNamed(LoginSelectionScreen.routeName);
+                                  Navigator.of(context).pushNamed(MainScreen.routeName);
                                 },
                                 child: const Text(
                                   'Continue without login',

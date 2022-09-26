@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:prodep_client/screens/login-screen.dart';
+import 'package:prodep_client/screens/main-screen.dart';
 
 class BackgroundRunWarningScreen extends StatelessWidget {
   static const routeName = "/backgroundRun";
@@ -88,7 +90,7 @@ class BackgroundRunWarningScreen extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: SizedBox(
                     width: 150,
-                    height: 40,
+                    height: 50,
                     child: ElevatedButton(
                       style: ButtonStyle(
                         shape:
@@ -103,8 +105,7 @@ class BackgroundRunWarningScreen extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        // Navigator.of(context)
-                        //     .pushNamed(LoginSelectionScreen.routeName);
+                        Navigator.of(context).pushNamed(LoginScreen.routeName);
                       },
                       child: const Text(
                         'GOT IT',
