@@ -4,55 +4,17 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class ProdepTwitterWidget extends StatefulWidget {
-  const ProdepTwitterWidget({Key? key}) : super(key: key);
+  final int hours;
+  final int minutes;
+  final String text;
+
+  const ProdepTwitterWidget({Key? key, required this.hours, required this.minutes, required this.text}) : super(key: key);
 
   @override
   State<ProdepTwitterWidget> createState() => _ProdepTwitterWidgetState();
 }
 
 class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
-  DateTime endDate = DateTime.now();
-  DateTime startDate = DateTime(
-      DateTime.now().year, DateTime.now().month, DateTime.now().day, 0, 0, 0);
-  int hours = 0;
-  int minutes = 0;
-  String text = "";
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      initUsage();
-    });
-  }
-
-  Future<void> initUsage() async {
-    int totalHours = 0;
-    int totalMinutes = 0;
-    List<AppUsageInfo> infoList =
-        await AppUsage.getAppUsage(startDate, endDate);
-
-    infoList.reversed.toList().forEach((element) {
-      if (element.packageName == "com.twitter.android") {
-        totalHours = totalHours + element.usage.inHours;
-        totalMinutes = totalMinutes + element.usage.inMinutes;
-      }
-    });
-
-    this.setState(() {
-      if (totalHours <= 3) {
-        text = "Good usage";
-      } else if (totalHours > 3 && totalHours <= 5) {
-        text = "Try to reduce";
-      } else {
-        text = "Too much";
-      }
-
-      hours = totalHours;
-      minutes = totalMinutes;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Flexible(
@@ -80,20 +42,20 @@ class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
                       const Padding(
                         padding: EdgeInsets.all(15.0),
                         child: Text(
-                          "Today's Social Media Usage",
+                          "Today's Twitter Usage",
                           style: TextStyle(
                               fontSize: 25,
                               color: Color(0xFF393737),
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      hours <= 3
+                      widget.hours <= 3
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  hours.toString(),
+                                  widget.hours.toString(),
                                   style: TextStyle(
                                     fontSize: 35,
                                     color: Colors.green,
@@ -107,7 +69,7 @@ class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
                                   ),
                                 ),
                                 Text(
-                                  minutes.toString(),
+                                  widget.minutes.toString(),
                                   style: TextStyle(
                                     fontSize: 35,
                                     color: Colors.green,
@@ -122,14 +84,14 @@ class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
                                 ),
                               ],
                             )
-                          : hours > 3 && hours <= 5
+                          : widget.hours > 3 && widget.hours <= 5
                               ? Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      hours.toString(),
+                                      widget.hours.toString(),
                                       style: TextStyle(
                                         fontSize: 35,
                                         color: Color.fromARGB(255, 235, 82, 12),
@@ -143,7 +105,7 @@ class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
                                       ),
                                     ),
                                     Text(
-                                      minutes.toString(),
+                                      widget.minutes.toString(),
                                       style: TextStyle(
                                         fontSize: 35,
                                         color: Color.fromARGB(255, 235, 82, 12),
@@ -164,7 +126,7 @@ class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      hours.toString(),
+                                      widget.hours.toString(),
                                       style: TextStyle(
                                         fontSize: 35,
                                         color: Colors.red,
@@ -178,7 +140,7 @@ class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
                                       ),
                                     ),
                                     Text(
-                                      minutes.toString(),
+                                      widget.minutes.toString(),
                                       style: TextStyle(
                                         fontSize: 35,
                                         color: Colors.red,
@@ -193,24 +155,24 @@ class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
                                     ),
                                   ],
                                 ),
-                      hours <= 3
+                      widget.hours <= 3
                           ? Text(
-                              text,
+                              widget.text,
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.green,
                               ),
                             )
-                          : hours > 3 && hours <= 5
+                          : widget.hours > 3 && widget.hours <= 5
                               ? Text(
-                                  text,
+                                  widget.text,
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Color.fromARGB(255, 235, 82, 12),
                                   ),
                                 )
                               : Text(
-                                  text,
+                                  widget.text,
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.red,

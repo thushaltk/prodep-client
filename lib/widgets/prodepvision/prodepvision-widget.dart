@@ -7,65 +7,17 @@ import 'package:prodep_client/widgets/prodepvision/prodepvision-main.dart';
 import 'package:usage_stats/usage_stats.dart';
 
 class ProdepVisionWidget extends StatefulWidget {
-  const ProdepVisionWidget({Key? key}) : super(key: key);
+  final int hours;
+  final int minutes;
+  final String text;
+
+  const ProdepVisionWidget({Key? key, required this.hours, required this.minutes, required this.text}) : super(key: key);
 
   @override
   State<ProdepVisionWidget> createState() => _ProdepVisionWidgetState();
 }
 
 class _ProdepVisionWidgetState extends State<ProdepVisionWidget> {
-  DateTime endDate = DateTime.now();
-  DateTime startDate = DateTime(
-      DateTime.now().year, DateTime.now().month, DateTime.now().day, 0, 0, 0);
-  int hours = 0;
-  int minutes = 0;
-  String text = "";
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      initUsage();
-    });
-  }
-
-  Future<void> initUsage() async {
-    int totalHours = 0;
-    int totalMinutes = 0;
-    List<AppUsageInfo> infoList =
-        await AppUsage.getAppUsage(startDate, endDate);
-
-    infoList.reversed.toList().forEach((element) {
-      if (element.packageName == "com.facebook.katana") {
-        totalHours = totalHours + element.usage.inHours;
-        totalMinutes = totalMinutes + element.usage.inMinutes;
-      }
-
-      if (element.packageName == "com.twitter.android") {
-        totalHours = totalHours + element.usage.inHours;
-        totalMinutes = totalMinutes + element.usage.inMinutes;
-      }
-
-      if (element.packageName == "com.google.android.youtube") {
-        totalHours = totalHours + element.usage.inHours;
-        totalMinutes = totalMinutes + element.usage.inMinutes;
-      }
-    });
-
-    this.setState(() {
-      if (totalHours <= 3) {
-        text = "Good usage";
-      } else if (totalHours > 3 && totalHours <= 5) {
-        text = "Try to reduce";
-      } else {
-        text = "Too much";
-      }
-
-      hours = totalHours;
-      minutes = totalMinutes;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Flexible(
@@ -100,13 +52,13 @@ class _ProdepVisionWidgetState extends State<ProdepVisionWidget> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      hours <= 3
+                      widget.hours <= 3
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  hours.toString(),
+                                  widget.hours.toString(),
                                   style: TextStyle(
                                     fontSize: 35,
                                     color: Colors.green,
@@ -120,7 +72,7 @@ class _ProdepVisionWidgetState extends State<ProdepVisionWidget> {
                                   ),
                                 ),
                                 Text(
-                                  minutes.toString(),
+                                  widget.minutes.toString(),
                                   style: TextStyle(
                                     fontSize: 35,
                                     color: Colors.green,
@@ -135,14 +87,14 @@ class _ProdepVisionWidgetState extends State<ProdepVisionWidget> {
                                 ),
                               ],
                             )
-                          : hours > 3 && hours <= 5
+                          : widget.hours > 3 && widget.hours <= 5
                               ? Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      hours.toString(),
+                                      widget.hours.toString(),
                                       style: TextStyle(
                                         fontSize: 35,
                                         color: Color.fromARGB(255, 235, 82, 12),
@@ -156,7 +108,7 @@ class _ProdepVisionWidgetState extends State<ProdepVisionWidget> {
                                       ),
                                     ),
                                     Text(
-                                      minutes.toString(),
+                                      widget.minutes.toString(),
                                       style: TextStyle(
                                         fontSize: 35,
                                         color: Color.fromARGB(255, 235, 82, 12),
@@ -177,7 +129,7 @@ class _ProdepVisionWidgetState extends State<ProdepVisionWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      hours.toString(),
+                                      widget.hours.toString(),
                                       style: TextStyle(
                                         fontSize: 35,
                                         color: Colors.red,
@@ -191,7 +143,7 @@ class _ProdepVisionWidgetState extends State<ProdepVisionWidget> {
                                       ),
                                     ),
                                     Text(
-                                      minutes.toString(),
+                                      widget.minutes.toString(),
                                       style: TextStyle(
                                         fontSize: 35,
                                         color: Colors.red,
@@ -206,24 +158,24 @@ class _ProdepVisionWidgetState extends State<ProdepVisionWidget> {
                                     ),
                                   ],
                                 ),
-                      hours <= 3
+                      widget.hours <= 3
                           ? Text(
-                              text,
+                              widget.text,
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.green,
                               ),
                             )
-                          : hours > 3 && hours <= 5
+                          : widget.hours > 3 && widget.hours <= 5
                               ? Text(
-                                  text,
+                                  widget.text,
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Color.fromARGB(255, 235, 82, 12),
                                   ),
                                 )
                               : Text(
-                                  text,
+                                  widget.text,
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.red,
