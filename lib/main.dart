@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:prodep_client/screens/backgroundrun-warning-screen.dart';
 import 'package:prodep_client/screens/enable-notifications-screen.dart';
@@ -12,8 +13,9 @@ import 'package:prodep_client/widgets/prodepvision/prodepvision-main.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   final cameras = await availableCameras();
-  final firstCamera = cameras.first;
+  final firstCamera = cameras[1];
   runApp(MyApp(
     camera: firstCamera,
   ));

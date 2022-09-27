@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "860527556582",
+    "project_id": "prodep-storage",
+    "storage_bucket": "prodep-storage.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860527556582:android:53bd4220833f48b95f0827",
+        "android_client_info": {
+          "package_name": "com.example.prodep_client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860527556582-4e4nv32tmb3ge643kfsmjekthavu64kv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABJFu1mNu6I3YB3KDWRo8mNveq-Ue9Hzw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860527556582-4e4nv32tmb3ge643kfsmjekthavu64kv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

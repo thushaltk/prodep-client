@@ -46,6 +46,8 @@ dependencies:
   usage_stats: ^1.2.0
   app_usage: ^2.0.0
   pull_to_refresh: ^2.0.0
+  firebase_core: ^1.23.0
+  firebase_storage: ^10.3.9
 
 dev_dependencies:
   flutter_test:

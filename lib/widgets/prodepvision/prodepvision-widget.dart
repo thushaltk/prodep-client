@@ -28,7 +28,7 @@ class _ProdepVisionWidgetState extends State<ProdepVisionWidget> {
           splashColor: Colors.blue.withAlpha(30),
           onTap: () {
             //getCameras();
-            // Navigator.of(context).pushNamed(ProdepVisionMain.routeName);
+            Navigator.of(context).pushNamed(ProdepVisionMain.routeName);
             // debugPrint('Card tapped.');
           },
           child: Container(
