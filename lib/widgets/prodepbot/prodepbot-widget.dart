@@ -33,83 +33,75 @@ class _ProDepBotWidgetState extends State<ProDepBotWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: EdgeInsets.only(left: 15.0, top: 15.0, right: 15.0),
                         child: Text(
-                          "Today's Social Media Usage",
+                          "Chatbot Summary",
                           style: TextStyle(
                               fontSize: 25,
                               color: Color(0xFF393737),
                               fontWeight: FontWeight.bold),
                         ),
                       ),
+                      Text(
+                        "Last conversation duration:",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Color(0xFF393737),
+                        ),
+                      ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: const [
                           Text(
-                            "09",
-                            style: TextStyle(
-                              fontSize: 35,
-                              color: Color(0xFF393737),
-                            ),
-                          ),
-                          Text(
-                            "Hrs",
-                            style: TextStyle(
-                              fontSize: 35,
-                              color: Color(0xFF393737),
-                            ),
-                          ),
-                          Text(
                             "30",
                             style: TextStyle(
-                              fontSize: 35,
-                              color: Color(0xFF393737),
-                            ),
+                                fontSize: 35,
+                                color: Color(0xFF2B87CB),
+                                fontWeight: FontWeight.bold),
                           ),
                           Text(
                             "mins",
                             style: TextStyle(
-                              fontSize: 35,
-                              color: Color(0xFF393737),
-                            ),
+                                fontSize: 35,
+                                color: Color(0xFF2B87CB),
+                                fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
-                      const Text(
-                        "Too Much",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Color(0xFF393737),
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          Text(
+                            "status: ",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Color(0xFF393737),),
+                          ),
+                          Text(
+                            "GOOD",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ),
-                const VerticalDivider(
-                  width: 20,
-                  thickness: 1,
-                  endIndent: 0,
-                  color: Colors.grey,
                 ),
                 Flexible(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text("Prominent Emotion"),
                       Image.asset(
-                        width: 70,
-                        'assets/images/happyface.png',
+                        width: 120,
+                        'assets/images/bot.png',
                         fit: BoxFit.contain,
                       ),
-                      const Text(
-                        "POSITIVE",
-                        style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold),
-                      ),
+                      
                       const Text("See more >>")
                     ],
                   ),

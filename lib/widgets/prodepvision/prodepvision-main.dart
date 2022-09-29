@@ -32,7 +32,7 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
   String emotionLabel = "---";
   String earValue = "0.00";
   bool isLoading = false;
-  var url = "http://192.168.1.2:8000/api/prodepvision";
+  var url = "http://192.168.8.161:8000/api/prodepvision";
 
   @override
   void initState() {
@@ -48,19 +48,7 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
     super.dispose();
   }
 
-  Future uploadFile() async {
-    if (_photo == null) return;
-    final fileName = "sample";
-    final destination = '/$fileName.jpg';
-
-    try {
-      final ref = firebase_storage.FirebaseStorage.instance.ref(destination);
-      await ref.putFile(_photo!);
-    } catch (e) {
-      print('error occured');
-    }
-
-    Future<void> getData() async {
+  Future<void> getData() async {
       try {
         Response res = await http.post(Uri.parse(url));
         setState(() {
@@ -72,13 +60,31 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
       }
     }
 
+
+  Future uploadFile() async {
+    if (_photo == null) return;
+    final fileName = "sample";
+    final destination = '/$fileName.jpg';
+
+    try {
+      final ref = firebase_storage.FirebaseStorage.instance.ref(destination);
+      await ref.putFile(_photo!);
+    } catch (e) {
+      print('error occured');
+    }
+  
     //TODO: add timer and POST request here
-    Timer(const Duration(seconds: 10), () async {
-      getData();
-      setState(() {
-        isLoading = false;
-      });
-    });
+    Timer(
+      const Duration(seconds: 10),
+      () async {
+        getData();
+        setState(
+          () {
+            isLoading = false;
+          },
+        );
+      },
+    );
   }
 
   Future imgFromCamera() async {

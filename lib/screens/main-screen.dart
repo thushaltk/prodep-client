@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:prodep_client/widgets/maindate-widget.dart';
+import 'package:prodep_client/widgets/prodepbot/prodepbot-widget.dart';
 import 'package:prodep_client/widgets/prodepfb/prodepfb-widget.dart';
 import 'package:prodep_client/widgets/prodeptwitter/prodeptwitter-widget.dart';
 import 'package:prodep_client/widgets/prodepvision/prodepvision-widget.dart';
@@ -194,7 +195,8 @@ class _MainScreenState extends State<MainScreen> {
                           hours: twitterHours,
                           minutes: twitterMinutes,
                           text: twitterText,
-                        )
+                        ),
+                        ProDepBotWidget()
                       ],
                     ),
                   ),

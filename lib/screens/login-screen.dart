@@ -35,6 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
         _userData = requestData;
       });
 
+      Navigator.of(context).pushNamed(MainScreen.routeName);
+      
       print(_userData);
     }
   }

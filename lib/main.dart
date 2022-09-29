@@ -9,6 +9,8 @@ import 'package:prodep_client/screens/linktwitter-screen.dart';
 import 'package:prodep_client/screens/login-screen.dart';
 import 'package:prodep_client/screens/main-screen.dart';
 import 'package:prodep_client/screens/splash-screen.dart';
+import 'package:prodep_client/widgets/prodepfb/prodepfb-card.dart';
+import 'package:prodep_client/widgets/prodepfb/prodepfb-main.dart';
 import 'package:prodep_client/widgets/prodepvision/prodepvision-main.dart';
 
 Future<void> main() async {
@@ -46,7 +48,8 @@ class MyApp extends StatelessWidget {
         MainScreen.routeName: (ctx) => const MainScreen(),
         ProdepVisionMain.routeName: (ctx) => ProdepVisionMain(
               camera: camera,
-            )
+            ),
+        ProdepfbMain.routeName: (ctx) => ProdepfbMain(),
       },
     );
   }

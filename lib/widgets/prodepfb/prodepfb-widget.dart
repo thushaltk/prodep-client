@@ -2,6 +2,7 @@ import 'package:app_usage/app_usage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:prodep_client/widgets/prodepfb/prodepfb-main.dart';
 
 class ProdepFbWidget extends StatefulWidget {
   final int hours;
@@ -26,7 +27,7 @@ class _ProdepFbWidgetState extends State<ProdepFbWidget> {
           splashColor: Colors.blue.withAlpha(30),
           onTap: () {
             //getCameras();
-            // Navigator.of(context).pushNamed(ProdepVisionMain.routeName);
+            Navigator.of(context).pushNamed(ProdepfbMain.routeName);
             // debugPrint('Card tapped.');
           },
           child: Container(
