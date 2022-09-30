@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:prodep_client/screens/main-screen.dart';
+import 'package:twitter_login/twitter_login.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = "/login";
@@ -23,21 +24,50 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> login() async {
     final result = await FacebookAuth.instance
         .login(permissions: ['public_profile', 'email', 'user_posts']);
-
-    print(result.accessToken!.token);
-
     if (result.status == LoginStatus.success) {
       final requestData = await FacebookAuth.i.getUserData(
         fields: "email,name,posts{attachments}",
       );
-
       setState(() {
         _userData = requestData;
       });
-
       Navigator.of(context).pushNamed(MainScreen.routeName);
-      
-      print(_userData);
+    }
+  }
+
+  Future<void> twitterLogin() async {
+    final twitterLogin = TwitterLogin(
+      /// Consumer API keys
+      apiKey: "NoIAujmA3P1vkJeb8IsjaWJi1",
+
+      /// Consumer API Secret keys
+      apiSecretKey: "N8V93zlKkA6QEZWClTiiscvof6fkMCzmtanjAIPJfDPM5d2hZM",
+
+      /// Registered Callback URLs in TwitterApp
+      /// Android is a deeplink
+      /// iOS is a URLScheme
+      redirectURI: 'twittersdk://',
+    );
+
+    /// Forces the user to enter their credentials
+    /// to ensure the correct users account is authorized.
+    /// If you want to implement Twitter account switching, set [force_login] to true
+    /// login(forceLogin: true);
+    final authResult = await twitterLogin.login();
+    switch (authResult.status) {
+      case TwitterLoginStatus.loggedIn:
+        // success
+        print(authResult.authToken);
+        break;
+      case TwitterLoginStatus.cancelledByUser:
+        // cancel
+        print('====== Login cancel ======');
+        break;
+      case TwitterLoginStatus.error:
+      case null:
+        // error
+        print('====== Login error ======');
+        break;
     }
   }
 
@@ -154,6 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 onPressed: () {
+                                  twitterLogin();
                                   // Navigator.of(context)
                                   //     .pushNamed(LoginSelectionScreen.routeName);
                                 },
@@ -182,43 +213,43 @@ class _LoginScreenState extends State<LoginScreen> {
                           fit: BoxFit.contain),
                     ),
                     SizedBox(
-                            height: 50,
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            child: SizedBox(
-                              width: 280,
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: const BorderSide(
-                                        color: Color(0xFF393737),
-                                      ),
-                                    ),
-                                  ),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(Colors.white),
-                                  padding:
-                                      MaterialStateProperty.all<EdgeInsets>(
-                                    const EdgeInsets.all(18.0),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pushNamed(MainScreen.routeName);
-                                },
-                                child: const Text(
-                                  'Continue without login',
-                                  style: TextStyle(
-                                    color: Color(0xFF393737),
-                                    fontSize: 15,
-                                  ),
+                      height: 50,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: 280,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: const BorderSide(
+                                  color: Color(0xFF393737),
                                 ),
                               ),
                             ),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                              const EdgeInsets.all(18.0),
+                            ),
                           ),
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(MainScreen.routeName);
+                          },
+                          child: const Text(
+                            'Continue without login',
+                            style: TextStyle(
+                              color: Color(0xFF393737),
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
