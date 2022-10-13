@@ -30,7 +30,7 @@ class _UserInfoWidgetState extends State<UserInfoWidget> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                "ThuzhalTK",
+                "Prodep Sliit",
                 style: TextStyle(fontSize: 25),
               ),
               Text(
@@ -60,9 +60,9 @@ class _UserInfoWidgetState extends State<UserInfoWidget> {
             padding: const EdgeInsets.only(left: 10.0, right: 10.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
-              child: Image.network(
-                "https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8aHVtYW4lMjBmYWNlfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
-                fit: BoxFit.cover,
+              child: Image.asset(
+                "assets/images/dp.png",
+                fit: BoxFit.fitWidth,
                 width: 60,
                 height: 60,
               ),

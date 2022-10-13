@@ -7,7 +7,10 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:prodep_client/widgets/prodepfb/prodepfb-card.dart';
+import 'package:prodep_client/widgets/prodeptwitter/prodeptwitter-card.dart';
+import 'package:prodep_client/widgets/prodeptwitter/prodeptwitter-normal.dart';
 import 'package:prodep_client/widgets/userinfo-widget.dart';
+import 'package:twitter_login/twitter_login.dart';
 
 class ProdepTwitterMain extends StatefulWidget {
   static const routeName = "/prodeptwitter-main";
@@ -19,41 +22,63 @@ class ProdepTwitterMain extends StatefulWidget {
 }
 
 class _ProdepTwitterMainState extends State<ProdepTwitterMain> {
-  late List<dynamic> _userData;
+  List<dynamic> _userData = [];
   bool _isLoading = false;
+  bool _unloadNormalScreen = false;
+  String bearerToken =
+      "AAAAAAAAAAAAAAAAAAAAAKmCcAEAAAAAenCkTBhu45orQN%2Buozk7IKZuREU%3DwOQdQFcwhvrYwCXfcUckq48g91iJksHl2M6xRGKjQqlt03JmKb";
 
-  List<dynamic> _imageUrls = [];
+  List<dynamic> _sinhalaTweets = [];
 
-  String url =
-      "https://graph.facebook.com/me?fields=id,name,posts{attachments}&access_token=";
+  String url = "https://api.twitter.com/2/users/";
 
-  Future<void> getPosts() async {
+  Future<void> getTweets() async {
     setState(() {
       _userData = [];
       _isLoading = true;
+      _unloadNormalScreen = true;
     });
 
-    final result = await FacebookAuth.instance
-        .login(permissions: ['public_profile', 'email', 'user_posts']);
-    final token = result.accessToken!.token;
+    final twitterLogin = TwitterLogin(
+      apiKey: "NoIAujmA3P1vkJeb8IsjaWJi1",
+      apiSecretKey: "N8V93zlKkA6QEZWClTiiscvof6fkMCzmtanjAIPJfDPM5d2hZM",
+      redirectURI: 'twittersdk://',
+    );
 
-    if (result.status == LoginStatus.success) {
-      http.Response res = await http.get(Uri.parse("$url$token"));
-
-      setState(() {
-        _userData = jsonDecode(res.body)['posts']['data'];
-      });
-
-      getImageUrls();
+    final authResult = await twitterLogin.login();
+    switch (authResult.status) {
+      case TwitterLoginStatus.loggedIn:
+        http.Response res = await http.get(
+            Uri.parse(
+                "$url${authResult.user!.id}/tweets?max_results=100&tweet.fields=lang"),
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer $bearerToken',
+            });
+        //print(jsonDecode(res.body)["data"].length);
+        setState(() {
+          _userData = jsonDecode(res.body)["data"];
+          _isLoading = false;
+        });
+        getSinhalaTweets();
+        break;
+      case TwitterLoginStatus.cancelledByUser:
+        print('====== Login cancel ======');
+        break;
+      case TwitterLoginStatus.error:
+      case null:
+        print('====== Login error ======');
+        break;
     }
   }
 
-  void getImageUrls() {
+  void getSinhalaTweets() {
     _userData.forEach((element) {
-      if (element['attachments']['data'][0]['media'] != null) {
+      if (element['lang'] == "si") {
+        print(element['text']);
         setState(() {
-          _imageUrls
-              .add(element['attachments']['data'][0]['media']['image']['src']);
+          _sinhalaTweets.add(element['text']);
           _isLoading = false;
         });
       }
@@ -86,7 +111,12 @@ class _ProdepTwitterMainState extends State<ProdepTwitterMain> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 10.0),
-                        child: Icon(Icons.arrow_back, size: 35),
+                        child: GestureDetector(
+                          child: Icon(Icons.arrow_back, size: 35),
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                        ),
                       ),
                       Container(
                         width: 250,
@@ -106,9 +136,9 @@ class _ProdepTwitterMainState extends State<ProdepTwitterMain> {
                       : Container(
                           alignment: Alignment.center,
                           child: SizedBox(
-                            width: 250,
+                            width: 280,
                             child: ElevatedButton.icon(
-                              icon: const Icon(FontAwesomeIcons.facebook),
+                              icon: const Icon(FontAwesomeIcons.twitter),
                               style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
@@ -123,12 +153,12 @@ class _ProdepTwitterMainState extends State<ProdepTwitterMain> {
                                 ),
                               ),
                               onPressed: () {
-                                getPosts();
+                                getTweets();
                                 // Navigator.of(context)
                                 //     .pushNamed(LoginSelectionScreen.routeName);
                               },
                               label: const Text(
-                                'RETRIEVE POSTS',
+                                'RETRIEVE SINHALA TWEETS',
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),
@@ -139,14 +169,29 @@ class _ProdepTwitterMainState extends State<ProdepTwitterMain> {
                 ),
               ],
             ),
-            Expanded(
-              child: Container(
-                  child: ListView.builder(
-                      itemCount: _imageUrls.length,
-                      itemBuilder: ((context, index) {
-                        return ProdepfbCard(imageUrl: _imageUrls[index]);
-                      }))),
-            ),
+            _unloadNormalScreen == false
+                ? Expanded(child: ProdepTwitterNormal())
+                : _isLoading
+                    ? Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(child: CircularProgressIndicator()),
+                          ],
+                        ),
+                      )
+                    : Expanded(
+                        child: Container(
+                          child: ListView.builder(
+                            itemCount: _sinhalaTweets.length,
+                            itemBuilder: ((context, index) {
+                              return ProdepTwitterCard(
+                                  tweets: _sinhalaTweets[index]);
+                            }),
+                          ),
+                        ),
+                      ),
           ],
         ),
       ),

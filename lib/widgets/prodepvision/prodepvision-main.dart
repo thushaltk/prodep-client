@@ -12,6 +12,7 @@ import 'package:http/http.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:prodep_client/widgets/prodepvision/prodepvision-normal.dart';
 
 class ProdepVisionMain extends StatefulWidget {
   static const routeName = "/prodepvision-main";
@@ -30,15 +31,22 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
       firebase_storage.FirebaseStorage.instance;
   File? _photo;
   String emotionLabel = "---";
-  String earValue = "0.00";
+  double earValue = 0.00;
+  String earAnalyzing = "";
   bool isLoading = false;
+  bool unloadVision = false;
   var url = "http://192.168.8.161:8000/api/prodepvision";
+  //var url = "http://192.168.1.4:8000/api/prodepvision";
+  //var url = "http://192.168.28.170:8000/api/prodepvision";
+  //var url = "http://172.28.25.12:8000/api/prodepvision";
+  
 
   @override
   void initState() {
     super.initState();
     _controller = CameraController(widget.camera, ResolutionPreset.medium);
     _initializeControllerFuture = _controller.initialize();
+    unloadVision = false;
   }
 
   @override
@@ -49,17 +57,30 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
   }
 
   Future<void> getData() async {
-      try {
-        Response res = await http.post(Uri.parse(url));
-        setState(() {
-          emotionLabel = jsonDecode(res.body)['emotion'];
-          earValue = jsonDecode(res.body)['ear'].toString();
-        });
-      } catch (e) {
-        print(e);
-      }
-    }
+    try {
+      Response res = await http.post(Uri.parse(url));
 
+      setState(() {
+        emotionLabel = jsonDecode(res.body)['emotion'];
+        earValue = jsonDecode(res.body)['ear'] != null
+            ? jsonDecode(res.body)['ear']
+            : 0.00;
+      });
+
+      Timer(
+        const Duration(seconds: 5),
+        () async {
+          setState(
+            () {
+              unloadVision = true;
+            },
+          );
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
 
   Future uploadFile() async {
     if (_photo == null) return;
@@ -72,8 +93,7 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
     } catch (e) {
       print('error occured');
     }
-  
-    //TODO: add timer and POST request here
+
     Timer(
       const Duration(seconds: 10),
       () async {
@@ -90,8 +110,10 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
   Future imgFromCamera() async {
     setState(() {
       isLoading = true;
+      earValue = 0.00;
+      unloadVision = true;
       emotionLabel = "Analyzing...";
-      earValue = "Analyzing...";
+      earAnalyzing = "Analyzing...";
     });
     try {
       // Ensure that the camera is initialized.
@@ -124,18 +146,21 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
             child: Container(
               width: double.infinity,
               height: 500,
-              child: FutureBuilder<void>(
-                future: _initializeControllerFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    // If the Future is complete, display the preview.
-                    return CameraPreview(_controller);
-                  } else {
-                    // Otherwise, display a loading indicator.
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                },
-              ),
+              child: unloadVision
+                  ? ProdepVisionNormal()
+                  : FutureBuilder<void>(
+                      future: _initializeControllerFuture,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          // If the Future is complete, display the preview.
+                          return CameraPreview(_controller);
+                        } else {
+                          // Otherwise, display a loading indicator.
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                      },
+                    ),
             ),
           ),
           SizedBox(
@@ -206,12 +231,29 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
                   style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
                 Text(
-                  earValue,
+                  isLoading ? earAnalyzing : earValue.toStringAsFixed(2),
                   style: TextStyle(
                       color: Colors.blue,
                       fontSize: 16,
                       fontWeight: FontWeight.bold),
-                )
+                ),
+                earValue != 0.00
+                    ? earValue > 0.01 && earValue < 0.2
+                        ? Text(
+                            " - LOOKS LIKE TIRED",
+                            style: TextStyle(
+                                color: Colors.orange,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          )
+                        : Text(
+                            " - LOOKS FINE",
+                            style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          )
+                    : Text(""),
               ],
             ),
           )

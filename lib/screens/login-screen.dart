@@ -20,7 +20,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   Map? _userData;
-
+  
+  //Facebook login
   Future<void> login() async {
     final result = await FacebookAuth.instance
         .login(permissions: ['public_profile', 'email', 'user_posts']);
@@ -35,29 +36,20 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  //Twitter login
   Future<void> twitterLogin() async {
     final twitterLogin = TwitterLogin(
-      /// Consumer API keys
       apiKey: "NoIAujmA3P1vkJeb8IsjaWJi1",
-
-      /// Consumer API Secret keys
       apiSecretKey: "N8V93zlKkA6QEZWClTiiscvof6fkMCzmtanjAIPJfDPM5d2hZM",
-
-      /// Registered Callback URLs in TwitterApp
-      /// Android is a deeplink
-      /// iOS is a URLScheme
       redirectURI: 'twittersdk://',
     );
 
-    /// Forces the user to enter their credentials
-    /// to ensure the correct users account is authorized.
-    /// If you want to implement Twitter account switching, set [force_login] to true
-    /// login(forceLogin: true);
     final authResult = await twitterLogin.login();
     switch (authResult.status) {
       case TwitterLoginStatus.loggedIn:
         // success
-        print(authResult.authToken);
+        print(authResult.user!.id);
+        Navigator.of(context).pushNamed(MainScreen.routeName);
         break;
       case TwitterLoginStatus.cancelledByUser:
         // cancel
@@ -69,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
         print('====== Login error ======');
         break;
     }
+    
   }
 
   @override

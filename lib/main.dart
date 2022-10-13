@@ -11,6 +11,7 @@ import 'package:prodep_client/screens/main-screen.dart';
 import 'package:prodep_client/screens/splash-screen.dart';
 import 'package:prodep_client/widgets/prodepfb/prodepfb-card.dart';
 import 'package:prodep_client/widgets/prodepfb/prodepfb-main.dart';
+import 'package:prodep_client/widgets/prodeptwitter/prodeptwtter-main.dart';
 import 'package:prodep_client/widgets/prodepvision/prodepvision-main.dart';
 
 Future<void> main() async {
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
               camera: camera,
             ),
         ProdepfbMain.routeName: (ctx) => ProdepfbMain(),
+        ProdepTwitterMain.routeName: (ctx) => ProdepTwitterMain()
       },
     );
   }

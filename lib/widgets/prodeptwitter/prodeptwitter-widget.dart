@@ -2,6 +2,7 @@ import 'package:app_usage/app_usage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:prodep_client/widgets/prodeptwitter/prodeptwtter-main.dart';
 
 class ProdepTwitterWidget extends StatefulWidget {
   final int hours;
@@ -25,7 +26,7 @@ class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
           splashColor: Colors.blue.withAlpha(30),
           onTap: () {
             //getCameras();
-            // Navigator.of(context).pushNamed(ProdepVisionMain.routeName);
+            Navigator.of(context).pushNamed(ProdepTwitterMain.routeName);
             // debugPrint('Card tapped.');
           },
           child: Container(

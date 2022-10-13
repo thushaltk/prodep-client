@@ -53,8 +53,12 @@ class _MainScreenState extends State<MainScreen> {
 
     infoList.reversed.toList().forEach((element) {
       if (element.packageName == "com.facebook.katana") {
-        totalHours = totalHours + int.parse((element.usage.toString().split(":"))[0]);
-        totalMinutes = totalMinutes + int.parse((element.usage.toString().split(":"))[1]);
+        //calculate total hours - facebook usage
+        totalHours =
+            totalHours + int.parse((element.usage.toString().split(":"))[0]);
+        //calculate total minutes - facebook usage
+        totalMinutes =
+            totalMinutes + int.parse((element.usage.toString().split(":"))[1]);
 
         totalFbHours = int.parse((element.usage.toString().split(":"))[0]);
         totalFbMinutes = int.parse((element.usage.toString().split(":"))[1]);
@@ -62,15 +66,18 @@ class _MainScreenState extends State<MainScreen> {
         if (totalMinutes >= 59) {
           totalHours = totalHours + 1;
           totalMinutes = totalMinutes - 60;
-        }    
+        }
       }
 
       if (element.packageName == "com.twitter.android") {
-        totalHours = totalHours + int.parse((element.usage.toString().split(":"))[0]);
-        totalMinutes = totalMinutes + int.parse((element.usage.toString().split(":"))[1]);
+        totalHours =
+            totalHours + int.parse((element.usage.toString().split(":"))[0]);
+        totalMinutes =
+            totalMinutes + int.parse((element.usage.toString().split(":"))[1]);
 
         totalTwitterHours = int.parse((element.usage.toString().split(":"))[0]);
-        totalTwitterMinutes = int.parse((element.usage.toString().split(":"))[1]);
+        totalTwitterMinutes =
+            int.parse((element.usage.toString().split(":"))[1]);
 
         if (totalMinutes >= 59) {
           totalHours = totalHours + 1;
@@ -81,9 +88,11 @@ class _MainScreenState extends State<MainScreen> {
       if (element.packageName == "com.google.android.youtube" ||
           element.packageName == "com.instagram.android" ||
           element.packageName == "com.whatsapp") {
-        totalHours = totalHours + int.parse((element.usage.toString().split(":"))[0]);
-        totalMinutes = totalMinutes + int.parse((element.usage.toString().split(":"))[1]);
-        
+        totalHours =
+            totalHours + int.parse((element.usage.toString().split(":"))[0]);
+        totalMinutes =
+            totalMinutes + int.parse((element.usage.toString().split(":"))[1]);
+
         if (totalMinutes >= 59) {
           totalHours = totalHours + 1;
           totalMinutes = totalMinutes - 60;
@@ -91,7 +100,6 @@ class _MainScreenState extends State<MainScreen> {
       }
     });
 
-    
     this.setState(() {
       if (totalHours <= 3) {
         text = "Good usage";
@@ -154,7 +162,12 @@ class _MainScreenState extends State<MainScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 10.0),
-                          child: Icon(Icons.arrow_back, size: 35),
+                          child: GestureDetector(
+                            child: Icon(Icons.arrow_back, size: 35),
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                          ),
                         ),
                         Container(
                           width: 250,

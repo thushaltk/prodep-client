@@ -7,6 +7,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:prodep_client/widgets/prodepfb/prodepfb-card.dart';
+import 'package:prodep_client/widgets/prodepfb/prodepfb-normal.dart';
 import 'package:prodep_client/widgets/userinfo-widget.dart';
 
 class ProdepfbMain extends StatefulWidget {
@@ -21,7 +22,7 @@ class ProdepfbMain extends StatefulWidget {
 class _ProdepfbMainState extends State<ProdepfbMain> {
   late List<dynamic> _userData;
   bool _isLoading = false;
-
+  bool _unloadNormalScreen = false;
   List<dynamic> _imageUrls = [];
 
   String url =
@@ -29,8 +30,10 @@ class _ProdepfbMainState extends State<ProdepfbMain> {
 
   Future<void> getPosts() async {
     setState(() {
+      _imageUrls = [];
       _userData = [];
       _isLoading = true;
+      _unloadNormalScreen = true;
     });
 
     final result = await FacebookAuth.instance
@@ -86,7 +89,12 @@ class _ProdepfbMainState extends State<ProdepfbMain> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 10.0),
-                        child: Icon(Icons.arrow_back, size: 35),
+                        child: GestureDetector(
+                          child: Icon(Icons.arrow_back, size: 35),
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                        ),
                       ),
                       Container(
                         width: 250,
@@ -139,14 +147,27 @@ class _ProdepfbMainState extends State<ProdepfbMain> {
                 ),
               ],
             ),
-            Expanded(
-              child: Container(
-                  child: ListView.builder(
-                      itemCount: _imageUrls.length,
-                      itemBuilder: ((context, index) {
-                        return ProdepfbCard(imageUrl: _imageUrls[index]);
-                      }))),
-            ),
+            _unloadNormalScreen == false
+                ? Expanded(child: ProdepFbNormal())
+                : _isLoading
+                    ? Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(child: CircularProgressIndicator()),
+                          ],
+                        ),
+                      )
+                    : Expanded(
+                        child: Container(
+                            child: ListView.builder(
+                                itemCount: _imageUrls.length,
+                                itemBuilder: ((context, index) {
+                                  return ProdepfbCard(
+                                      imageUrl: _imageUrls[index]);
+                                }))),
+                      ),
           ],
         ),
       ),

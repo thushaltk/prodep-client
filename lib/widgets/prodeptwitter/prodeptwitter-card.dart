@@ -9,76 +9,44 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
-class ProdepfbCard extends StatefulWidget {
-  final String imageUrl;
+class ProdepTwitterCard extends StatefulWidget {
+  final String tweets;
 
-  const ProdepfbCard({Key? key, required this.imageUrl}) : super(key: key);
+  const ProdepTwitterCard({Key? key, required this.tweets}) : super(key: key);
 
   @override
-  State<ProdepfbCard> createState() => _ProdepfbCardState();
+  State<ProdepTwitterCard> createState() => _ProdepTwitterCardState();
 }
 
-class _ProdepfbCardState extends State<ProdepfbCard> {
+class _ProdepTwitterCardState extends State<ProdepTwitterCard> {
   late Future<void> _initializeControllerFuture;
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
   String result = "";
   bool isLoading = false;
   File? _photo;
-  var url = "http://192.168.8.161:8000/api/prodepfb";
-  //var url = "http://192.168.1.4:8000/api/prodepfb";
-  //var url = "http://192.168.28.170:8000/api/prodepfb";
-  //var url = "http://172.28.25.12:8000/api/prodepfb";
-
-  Future convertImageToFile() async {
-    if (widget.imageUrl == null) return;
-
-    Directory tempDir = await getTemporaryDirectory();
-    String tempPath = tempDir.path;
-    File tempFile = File("$tempPath sample.jpg");
-
-    http.Response response = await http.get(Uri.parse(widget.imageUrl));
-    File tempPhoto = await tempFile.writeAsBytes(response.bodyBytes);
-
-    setState(() {
-      _photo = File(tempPhoto.path);
-    });
-  }
-
-  //Upload image to the firebase storage
-  Future uploadFile() async {
-    setState(
-      () {
-        isLoading = true;
-      },
-    );
-    await convertImageToFile();
-
-    const fileName = "sample";
-    const destination = '/prodepfb/$fileName.jpg';
-
-    try {
-      final ref = firebase_storage.FirebaseStorage.instance.ref(destination);
-      await ref.putFile(_photo!);
-
-      Timer(
-        const Duration(seconds: 10),
-        () async {
-          await analyzeSentimentProcess();
-        },
-      );
-    } catch (e) {
-      print('error occured');
-    }
-  }
+  var url = "http://192.168.8.161:8000/api/prodeptweet";
+  //var url = "http://192.168.1.4:8000/api/prodeptweet";
+  //var url = "http://192.168.28.170:8000/api/prodeptweet";
+  //var url = "http://172.28.25.12:8000/api/prodeptweet";
 
   Future<void> analyzeSentimentProcess() async {
+    print(widget.tweets.toString());
+    setState(() {
+      isLoading = true;
+    });
     try {
-      http.Response res = await http.post(Uri.parse(url));
-      setState(() {
-        result = jsonDecode(res.body)['result'];
-        isLoading = false;
-      });
+      http.Response res = await http
+          .post(Uri.parse(url), body: {"data": widget.tweets.toString()});
+      Timer(
+        const Duration(seconds: 2),
+        () async {
+          setState(() {
+            result = jsonDecode(res.body)['result'];
+            isLoading = false;
+          });
+        },
+      );
     } catch (e) {
       print(e);
     }
@@ -92,10 +60,19 @@ class _ProdepfbCardState extends State<ProdepfbCard> {
         color: Colors.white,
         child: Column(
           children: [
-            Container(
-              width: double.infinity,
-              height: 300,
-              child: Image.network(widget.imageUrl),
+            Padding(
+              padding: const EdgeInsets.only(left: 18.0),
+              child: Container(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 30.0),
+                  child: Center(
+                      child: Text(
+                    widget.tweets,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  )),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 30.0, bottom: 10.0),
@@ -104,10 +81,9 @@ class _ProdepfbCardState extends State<ProdepfbCard> {
                   : Container(
                       alignment: Alignment.center,
                       child: SizedBox(
-                        width: 130,
                         child: ElevatedButton.icon(
                           icon: const Icon(
-                            FontAwesomeIcons.satellite,
+                            FontAwesomeIcons.cog,
                             color: Color(0xFF393737),
                           ),
                           style: ButtonStyle(
@@ -124,12 +100,13 @@ class _ProdepfbCardState extends State<ProdepfbCard> {
                             ),
                           ),
                           onPressed: () {
-                            uploadFile();
+                            analyzeSentimentProcess();
+                            //uploadFile();
                             // Navigator.of(context)
                             //     .pushNamed(LoginSelectionScreen.routeName);
                           },
                           label: const Text(
-                            'Analyze',
+                            'Analyze Tweet',
                             style: TextStyle(
                                 fontSize: 16, color: Color(0xFF393737)),
                           ),
