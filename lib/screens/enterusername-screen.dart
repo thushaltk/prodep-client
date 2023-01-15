@@ -1,42 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:prodep_client/screens/backgroundrun-warning-screen.dart';
-import 'package:prodep_client/screens/enter-district-screen.dart';
+import 'package:prodep_client/screens/main-screen.dart';
 
-class EnableNotificationsScreen extends StatefulWidget {
-  static const routeName = "/enableNotifications";
-
-  const EnableNotificationsScreen({Key? key}) : super(key: key);
+class EnterUsernameScreen extends StatefulWidget {
+  static const routeName = "/enterUsername";
+  EnterUsernameScreen({Key? key}) : super(key: key);
 
   @override
-  State<EnableNotificationsScreen> createState() =>
-      _EnableNotificationsScreenState();
+  State<EnterUsernameScreen> createState() => _EnterUsernameScreenState();
 }
 
-class _EnableNotificationsScreenState extends State<EnableNotificationsScreen> {
-  void enableNotificationsPermission() async {
-    if (await Permission.notification.status == PermissionStatus.granted) {
-      Fluttertoast.showToast(
-        msg: "Already approved!",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 12.0
-    );
-      Navigator.of(context).pushNamed(BackgroundRunWarningScreen.routeName);
-    } else {
-      openAppSettings();
-    }
+class _EnterUsernameScreenState extends State<EnterUsernameScreen> {
+  TextEditingController _usernameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Container(
         width: double.infinity,
@@ -58,18 +45,18 @@ class _EnableNotificationsScreenState extends State<EnableNotificationsScreen> {
                     width: double.infinity,
                     child: Image.asset(
                       width: 150,
-                      'assets/images/notify-bell.png',
+                      'assets/images/user.png',
                       fit: BoxFit.contain,
                     ),
                   ),
                   const SizedBox(
-                    height: 80,
+                    height: 40,
                   ),
                   Container(
                     width: double.infinity,
                     alignment: Alignment.center,
                     child: const Text(
-                      'Enable Notifications',
+                      'Enter any username',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -80,18 +67,39 @@ class _EnableNotificationsScreenState extends State<EnableNotificationsScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    child: Text(
-                      textAlign: TextAlign.center,
-                      'Enable notifications so you don’t miss any important updates.',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        'Enter any username that you prefer using in this app',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: 330,
+                    child: TextFormField(
+                      controller: _usernameController,
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.person),
+                        hintText: 'Enter username',
+                        labelText: 'Username',
+                      ),
+                      onSaved: (String? value) {
+                        // This optional block of code can be used to run
+                        // code when the user saves the form.
+                      },
+                    ),
+                  )
                 ],
               ),
             ),
@@ -126,10 +134,12 @@ class _EnableNotificationsScreenState extends State<EnableNotificationsScreen> {
                         ),
                       ),
                       onPressed: () {
-                        enableNotificationsPermission();
+                        Navigator.of(context).pushNamed(MainScreen.routeName, arguments: {
+                          'username': _usernameController.text
+                        });
                       },
                       child: const Text(
-                        'GO TO SETTINGS',
+                        'PROCEED',
                         style: TextStyle(
                           fontSize: 13,
                         ),

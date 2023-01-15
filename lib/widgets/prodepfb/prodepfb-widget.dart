@@ -3,20 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:prodep_client/widgets/prodepfb/prodepfb-main.dart';
+import 'package:prodep_client/widgets/prodepfb/prodepfb-report.dart';
 
 class ProdepFbWidget extends StatefulWidget {
   final int hours;
   final int minutes;
   final String text;
+  final String username;
 
-  const ProdepFbWidget({Key? key, required this.hours, required this.minutes, required this.text}) : super(key: key);
+  const ProdepFbWidget(
+      {Key? key,
+      required this.hours,
+      required this.minutes,
+      required this.text,
+      required this.username})
+      : super(key: key);
 
   @override
   State<ProdepFbWidget> createState() => _ProdepFbWidgetState();
 }
 
 class _ProdepFbWidgetState extends State<ProdepFbWidget> {
-  
   @override
   Widget build(BuildContext context) {
     return Flexible(
@@ -27,7 +34,8 @@ class _ProdepFbWidgetState extends State<ProdepFbWidget> {
           splashColor: Colors.blue.withAlpha(30),
           onTap: () {
             //getCameras();
-            Navigator.of(context).pushNamed(ProdepfbMain.routeName);
+            Navigator.of(context).pushNamed(ProdepfbMain.routeName,
+                arguments: {'username': widget.username});
             // debugPrint('Card tapped.');
           },
           child: Container(
@@ -194,20 +202,40 @@ class _ProdepFbWidgetState extends State<ProdepFbWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text("Prominent Emotion"),
                       Image.asset(
-                        width: 70,
-                        'assets/images/happyface.png',
+                        width: 100,
+                        'assets/images/report.png',
                         fit: BoxFit.contain,
                       ),
-                      const Text(
-                        "POSITIVE",
-                        style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold),
+                      Container(
+                        alignment: Alignment.bottomCenter,
+                        child: SizedBox(
+                          width: 70,
+                          height: 25,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                              )),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  const Color(0xFF393737)),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                  Prodepfbreport.routeName,
+                                  arguments: {'username': widget.username});
+                            },
+                            child: const Text(
+                              'VIEW',
+                              style: TextStyle(
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                      const Text("See more >>")
                     ],
                   ),
                 ),

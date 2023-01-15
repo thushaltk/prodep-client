@@ -30,7 +30,7 @@ class _UserInfoWidgetState extends State<UserInfoWidget> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                "Prodep Sliit",
+                widget.username,
                 style: TextStyle(fontSize: 25),
               ),
               Text(

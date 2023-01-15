@@ -65,8 +65,11 @@ class _ProdepfbMainState extends State<ProdepfbMain> {
 
   @override
   Widget build(BuildContext context) {
+    Map args = ModalRoute.of(context)!.settings.arguments as Map;
+    var usernameArg = args['username'];
     return Scaffold(
       body: Container(
+        color: Colors.white,
         height: double.infinity,
         width: double.infinity,
         child: Column(
@@ -99,8 +102,8 @@ class _ProdepfbMainState extends State<ProdepfbMain> {
                       Container(
                         width: 250,
                         height: 100,
-                        child: const UserInfoWidget(
-                          username: '',
+                        child: UserInfoWidget(
+                          username: usernameArg,
                           userdistrict: '',
                         ),
                       ),
@@ -165,7 +168,9 @@ class _ProdepfbMainState extends State<ProdepfbMain> {
                                 itemCount: _imageUrls.length,
                                 itemBuilder: ((context, index) {
                                   return ProdepfbCard(
-                                      imageUrl: _imageUrls[index]);
+                                    imageUrl: _imageUrls[index],
+                                    username: usernameArg,
+                                  );
                                 }))),
                       ),
           ],

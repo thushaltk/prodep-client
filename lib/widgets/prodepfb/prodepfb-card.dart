@@ -7,18 +7,22 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:prodep_client/services/prodepfb-service.dart';
 
 class ProdepfbCard extends StatefulWidget {
   final String imageUrl;
+  final String username;
 
-  const ProdepfbCard({Key? key, required this.imageUrl}) : super(key: key);
+  const ProdepfbCard({Key? key, required this.imageUrl, required this.username}) : super(key: key);
 
   @override
   State<ProdepfbCard> createState() => _ProdepfbCardState();
 }
 
 class _ProdepfbCardState extends State<ProdepfbCard> {
+  late ProdepFBService prodepFBService;
   late Future<void> _initializeControllerFuture;
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
@@ -29,6 +33,12 @@ class _ProdepfbCardState extends State<ProdepfbCard> {
   //var url = "http://192.168.1.4:8000/api/prodepfb";
   //var url = "http://192.168.28.170:8000/api/prodepfb";
   //var url = "http://172.28.25.12:8000/api/prodepfb";
+
+  @override
+  void initState() {
+    super.initState();
+    prodepFBService = new ProdepFBService();
+  }
 
   Future convertImageToFile() async {
     if (widget.imageUrl == null) return;
@@ -73,12 +83,15 @@ class _ProdepfbCardState extends State<ProdepfbCard> {
   }
 
   Future<void> analyzeSentimentProcess() async {
+    String date = DateFormat("yyyy/MM/dd").format(DateTime.now());
     try {
       http.Response res = await http.post(Uri.parse(url));
       setState(() {
         result = jsonDecode(res.body)['result'];
         isLoading = false;
       });
+
+      await prodepFBService.saveFBData(widget.username, date, result);
     } catch (e) {
       print(e);
     }

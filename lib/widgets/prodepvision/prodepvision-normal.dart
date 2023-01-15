@@ -13,7 +13,7 @@ class ProdepVisionNormal extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-              "Be the ",
+              "Let us analyze your ",
               style: TextStyle(fontSize: 35, color: Colors.black54),
             ),
           Image.asset("assets/images/vision.png"),

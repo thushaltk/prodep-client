@@ -2,14 +2,16 @@ import 'package:app_usage/app_usage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:prodep_client/widgets/prodeptwitter/prodeptweet-report.dart';
 import 'package:prodep_client/widgets/prodeptwitter/prodeptwtter-main.dart';
 
 class ProdepTwitterWidget extends StatefulWidget {
   final int hours;
   final int minutes;
   final String text;
+  final String username;
 
-  const ProdepTwitterWidget({Key? key, required this.hours, required this.minutes, required this.text}) : super(key: key);
+  const ProdepTwitterWidget({Key? key, required this.hours, required this.minutes, required this.text, required this.username}) : super(key: key);
 
   @override
   State<ProdepTwitterWidget> createState() => _ProdepTwitterWidgetState();
@@ -26,7 +28,7 @@ class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
           splashColor: Colors.blue.withAlpha(30),
           onTap: () {
             //getCameras();
-            Navigator.of(context).pushNamed(ProdepTwitterMain.routeName);
+            Navigator.of(context).pushNamed(ProdepTwitterMain.routeName, arguments: {'username': widget.username});
             // debugPrint('Card tapped.');
           },
           child: Container(
@@ -193,20 +195,41 @@ class _ProdepTwitterWidgetState extends State<ProdepTwitterWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text("Prominent Emotion"),
                       Image.asset(
-                        width: 70,
-                        'assets/images/happyface.png',
+                        width: 100,
+                        'assets/images/report.png',
                         fit: BoxFit.contain,
                       ),
-                      const Text(
-                        "POSITIVE",
-                        style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold),
+                      Container(
+                        alignment: Alignment.bottomCenter,
+                        child: SizedBox(
+                          width: 70,
+                          height: 25,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50.0),
+                              )),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  const Color(0xFF393737)),
+                              
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                  Prodeptweetreport.routeName,
+                                  arguments: {'username': widget.username});
+                            },
+                            child: const Text(
+                              'VIEW',
+                              style: TextStyle(
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                      const Text("See more >>")
                     ],
                   ),
                 ),

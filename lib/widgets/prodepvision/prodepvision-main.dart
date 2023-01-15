@@ -9,9 +9,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:prodep_client/services/prodepvision-service.dart';
 import 'package:prodep_client/widgets/prodepvision/prodepvision-normal.dart';
 
 class ProdepVisionMain extends StatefulWidget {
@@ -25,6 +27,7 @@ class ProdepVisionMain extends StatefulWidget {
 }
 
 class _ProdepVisionMainState extends State<ProdepVisionMain> {
+  late ProdepvisionService prodepvisionService;
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
   firebase_storage.FirebaseStorage storage =
@@ -39,11 +42,11 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
   //var url = "http://192.168.1.4:8000/api/prodepvision";
   //var url = "http://192.168.28.170:8000/api/prodepvision";
   //var url = "http://172.28.25.12:8000/api/prodepvision";
-  
 
   @override
   void initState() {
     super.initState();
+    prodepvisionService = ProdepvisionService();
     _controller = CameraController(widget.camera, ResolutionPreset.medium);
     _initializeControllerFuture = _controller.initialize();
     unloadVision = false;
@@ -56,7 +59,8 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
     super.dispose();
   }
 
-  Future<void> getData() async {
+  Future<void> getData(username) async {
+    String date = DateFormat("yyyy/MM/dd").format(DateTime.now());
     try {
       Response res = await http.post(Uri.parse(url));
 
@@ -65,24 +69,28 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
         earValue = jsonDecode(res.body)['ear'] != null
             ? jsonDecode(res.body)['ear']
             : 0.00;
+        isLoading = false;
       });
 
-      Timer(
-        const Duration(seconds: 5),
-        () async {
-          setState(
-            () {
-              unloadVision = true;
-            },
-          );
-        },
-      );
+      await prodepvisionService.saveVisionData(
+          username, date, emotionLabel, earValue.toString());
+
+      // Timer(
+      //   const Duration(seconds: 5),
+      //   () {
+      //     setState(
+      //       () {
+      //         unloadVision = true;
+      //       },
+      //     );
+      //   },
+      // );
     } catch (e) {
       print(e);
     }
   }
 
-  Future uploadFile() async {
+  Future uploadFile(username) async {
     if (_photo == null) return;
     final fileName = "sample";
     final destination = '/$fileName.jpg';
@@ -97,17 +105,12 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
     Timer(
       const Duration(seconds: 10),
       () async {
-        getData();
-        setState(
-          () {
-            isLoading = false;
-          },
-        );
+        getData(username);
       },
     );
   }
 
-  Future imgFromCamera() async {
+  Future imgFromCamera(username) async {
     setState(() {
       isLoading = true;
       earValue = 0.00;
@@ -125,7 +128,7 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
       setState(() {
         if (image != null) {
           _photo = File(image.path);
-          uploadFile();
+          uploadFile(username);
         } else {
           print('No image selected.');
         }
@@ -138,6 +141,8 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
 
   @override
   Widget build(BuildContext context) {
+    Map args = ModalRoute.of(context)!.settings.arguments as Map;
+    var usernameArg = args['username'];
     return Scaffold(
       body: Column(
         children: [
@@ -187,7 +192,7 @@ class _ProdepVisionMainState extends State<ProdepVisionMain> {
                         ),
                       ),
                       onPressed: () {
-                        imgFromCamera();
+                        imgFromCamera(usernameArg);
                         // Navigator.of(context)
                         //     .pushNamed(LoginSelectionScreen.routeName);
                       },

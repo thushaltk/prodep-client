@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:http/http.dart' as http;
+import 'package:prodep_client/screens/enterusername-screen.dart';
 import 'package:prodep_client/screens/main-screen.dart';
 import 'package:twitter_login/twitter_login.dart';
 
@@ -20,7 +21,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   Map? _userData;
-  
+
   //Facebook login
   Future<void> login() async {
     final result = await FacebookAuth.instance
@@ -32,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         _userData = requestData;
       });
-      Navigator.of(context).pushNamed(MainScreen.routeName);
+      Navigator.of(context).pushNamed(EnterUsernameScreen.routeName);
     }
   }
 
@@ -49,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
       case TwitterLoginStatus.loggedIn:
         // success
         print(authResult.user!.id);
-        Navigator.of(context).pushNamed(MainScreen.routeName);
+        Navigator.of(context).pushNamed(EnterUsernameScreen.routeName);
         break;
       case TwitterLoginStatus.cancelledByUser:
         // cancel
@@ -61,7 +62,6 @@ class _LoginScreenState extends State<LoginScreen> {
         print('====== Login error ======');
         break;
     }
-    
   }
 
   @override
@@ -231,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           onPressed: () {
                             Navigator.of(context)
-                                .pushNamed(MainScreen.routeName);
+                                .pushNamed(EnterUsernameScreen.routeName);
                           },
                           child: const Text(
                             'Continue without login',

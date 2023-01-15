@@ -136,10 +136,13 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Map args = ModalRoute.of(context)!.settings.arguments as Map;
+    var usernameArg = args['username'];
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: initUsage,
         child: Container(
+          color: Colors.white,
           height: double.infinity,
           width: double.infinity,
           child: Column(
@@ -172,8 +175,8 @@ class _MainScreenState extends State<MainScreen> {
                         Container(
                           width: 250,
                           height: 100,
-                          child: const UserInfoWidget(
-                            username: '',
+                          child: UserInfoWidget(
+                            username: usernameArg,
                             userdistrict: '',
                           ),
                         ),
@@ -195,16 +198,19 @@ class _MainScreenState extends State<MainScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         ProdepVisionWidget(
+                          username: usernameArg,
                           hours: hours,
                           minutes: minutes,
                           text: text,
                         ),
                         ProdepFbWidget(
+                          username: usernameArg,
                           hours: fbHours,
                           minutes: fbMinutes,
                           text: fbText,
                         ),
                         ProdepTwitterWidget(
+                          username: usernameArg,
                           hours: twitterHours,
                           minutes: twitterMinutes,
                           text: twitterText,

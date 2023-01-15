@@ -87,8 +87,11 @@ class _ProdepTwitterMainState extends State<ProdepTwitterMain> {
 
   @override
   Widget build(BuildContext context) {
+    Map args = ModalRoute.of(context)!.settings.arguments as Map;
+    var usernameArg = args['username'];
     return Scaffold(
       body: Container(
+        color: Colors.white,
         height: double.infinity,
         width: double.infinity,
         child: Column(
@@ -121,8 +124,8 @@ class _ProdepTwitterMainState extends State<ProdepTwitterMain> {
                       Container(
                         width: 250,
                         height: 100,
-                        child: const UserInfoWidget(
-                          username: '',
+                        child: UserInfoWidget(
+                          username: usernameArg,
                           userdistrict: '',
                         ),
                       ),
@@ -187,7 +190,8 @@ class _ProdepTwitterMainState extends State<ProdepTwitterMain> {
                             itemCount: _sinhalaTweets.length,
                             itemBuilder: ((context, index) {
                               return ProdepTwitterCard(
-                                  tweets: _sinhalaTweets[index]);
+                                  tweets: _sinhalaTweets[index],
+                                  username: usernameArg,);
                             }),
                           ),
                         ),

@@ -7,18 +7,23 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:prodep_client/services/prodeptweet-service.dart';
 
 class ProdepTwitterCard extends StatefulWidget {
   final String tweets;
+  final String username;
+  
 
-  const ProdepTwitterCard({Key? key, required this.tweets}) : super(key: key);
+  const ProdepTwitterCard({Key? key, required this.tweets, required this.username}) : super(key: key);
 
   @override
   State<ProdepTwitterCard> createState() => _ProdepTwitterCardState();
 }
 
 class _ProdepTwitterCardState extends State<ProdepTwitterCard> {
+  late ProdepTweetService prodepTweetService;
   late Future<void> _initializeControllerFuture;
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
@@ -30,7 +35,14 @@ class _ProdepTwitterCardState extends State<ProdepTwitterCard> {
   //var url = "http://192.168.28.170:8000/api/prodeptweet";
   //var url = "http://172.28.25.12:8000/api/prodeptweet";
 
+  @override
+  void initState() {
+    super.initState();
+    prodepTweetService = new ProdepTweetService();
+  }
+
   Future<void> analyzeSentimentProcess() async {
+    String date = DateFormat("yyyy/MM/dd").format(DateTime.now());
     print(widget.tweets.toString());
     setState(() {
       isLoading = true;
@@ -45,6 +57,7 @@ class _ProdepTwitterCardState extends State<ProdepTwitterCard> {
             result = jsonDecode(res.body)['result'];
             isLoading = false;
           });
+      await prodepTweetService.saveTweetData(widget.username, date, result);
         },
       );
     } catch (e) {

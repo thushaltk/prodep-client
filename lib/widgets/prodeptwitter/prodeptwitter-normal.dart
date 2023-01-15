@@ -10,6 +10,7 @@ class ProdepTwitterNormal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        color: Colors.white,
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
